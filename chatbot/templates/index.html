@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot Helpdesk</h1>
+    <form action="/" method="POST">
+        <label for="condition">Health Condition:</label>
+        <select name="condition" id="condition">
+            {% for condition in conditions %}
+                <option value="{{ condition }}">{{ condition }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="severity">Severity:</label>
+        <select name="severity" id="severity">
+            {% for severity in severity_levels %}
+                <option value="{{ severity }}">{{ severity }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br><br>
+
+    <p><strong>Response:</strong> {{ response }}</p>
+
+    <button onclick="speakResponse()">Speak Response</button>
+
+    <script>
+        function speakResponse() {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = "{{ response }}";
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
